@@ -1,1 +1,1 @@
-CONFIG_FILE = "~/rgcap.toml"
+CONFIG_FILE = "~/.config/rgcap/rgcap.toml"

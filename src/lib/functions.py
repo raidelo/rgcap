@@ -2,32 +2,18 @@ from datetime import datetime
 from os import system as os_system
 from platform import system as platform_system
 from re import fullmatch
-import tomllib
 from pathlib import Path
+
+import tomllib
 
 from .constants import CONFIG_FILE
 
 
-def clear_screen():
-    system = platform_system()
-
-    if system == "Linux":
-        os_system("clear")
-    elif system == "Windows":
-        os_system("cls")
-
-
-def get_time_now() -> str:
-    """
-    Devuelve la fecha y hora actual con el formato YYYY-mm-dd HH:MM:SS
-    """
-    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-
-def load_config() -> dict:
+def load_config() -> dict[str, str]:
     """
     Devuelve un diccionario con la configuración del archivo de configuración
     """
+
     path = Path(CONFIG_FILE).expanduser()
 
     if not path.is_absolute():
@@ -39,9 +25,33 @@ def load_config() -> dict:
     return data
 
 
-def verify_number(string: str) -> float:
+def clear_screen():
     """
-    Verifica y convierte un dato de tipo `str` a un dato de tipo `float`
+    Intenta limpiar la terminal. (Solo para sistemas Windows y Linux)
+    """
+    system = platform_system()
+
+    if system == "Windows":
+        os_system("cls")
+    elif system == "Linux":
+        os_system("clear")
+
+
+def get_time_now(format: str = "%Y-%m-%d %H:%M:%S") -> str:
+    """
+    Devuelve la fecha y hora actual con el formato dado.
+
+    Por defecto: YYYY-mm-dd HH:MM:SS
+    """
+
+    return datetime.now().strftime(format)
+
+
+def float_from_str(string: str) -> float:
+    """
+    Intenta convertir un dato de tipo `str` a un dato de tipo `float`
+
+    Si no se puede, devuelve None
     """
 
     sign = "[+-]?"
@@ -65,7 +75,7 @@ def verify_number(string: str) -> float:
         except ValueError:
             pass
 
-    return 0.0
+    return None
 
 
 def clinput(s: str = "") -> str:

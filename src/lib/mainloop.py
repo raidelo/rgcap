@@ -1,6 +1,6 @@
 from pandas import read_sql
 
-from .functions import clear_screen, clinput, verify_number
+from .functions import clear_screen, clinput, float_from_str
 from .rg_controller import RGController
 
 
@@ -36,7 +36,7 @@ def mainloop(controller: RGController) -> None:
         cmd_list = cmd.split()
         cmd_len = len(cmd_list)
 
-        number = verify_number(cmd)
+        number = float_from_str(cmd)
 
         if number:
             # Ingresar una cantidad de efectivo en la base de datos en el campo `default_field`.
@@ -58,7 +58,7 @@ def mainloop(controller: RGController) -> None:
             if e == "q":
                 continue
 
-            number = verify_number(e)
+            number = float_from_str(e)
 
             if number:
                 description = input("Descripción? ")

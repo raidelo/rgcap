@@ -9,3 +9,9 @@ dependencies = [
     "pandas>=2.2.3",
     "seaborn>=0.13.2",
 ]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "src",
+    "lib",
+]
