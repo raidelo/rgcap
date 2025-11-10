@@ -268,6 +268,16 @@ def mainloop(controller: RGController) -> None:
                         )
                     )
 
+        elif cmd_len >= 2 and cmd_list[0] == "move" and cmd_list[1].isdigit():
+            a = 1
+            try:
+                a = int(cmd_list[2])
+            except IndexError:
+                pass
+            except ValueError:
+                pass
+            controller.move_data(int(cmd_list[1]), ammount_to_move=a)
+
         else:
             print("Dato incorrecto.")
 
